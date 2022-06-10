@@ -1,3 +1,5 @@
+import axios from "axios";
+
 function formatDate(timestamp) {
   let date = new Date(timestamp);
   let hours = date.getHours();
@@ -66,7 +68,7 @@ function displayForcast(response) {
   forecastElement.innerHTML = forecastHTML;
 }
 
-function getForcast(coordinates) {
+export default function App(coordinates) {
   let apiKey = `861fb20b505f7e96a549db90c19a5142`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForcast);
@@ -95,7 +97,7 @@ function displayTemperature(response) {
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
 
-  getForcast(response.data.coord);
+  App(response.data.coord);
 }
 
 function handleSubmit(event) {
